@@ -1,4 +1,4 @@
-import tweepy, time, sys, random
+import tweepy, time, sys, random, os
 # Import libraries
 
 __author__ = 'ipurton'
@@ -8,15 +8,18 @@ __author__ = 'ipurton'
 # Based on the guide found at http://www.dototot.com/how-to-write-a-twitter-bot-with-python-and-tweepy/
 
 # Revision Log:
+# 9/28/2015	    IP		Switched to absolute paths instead of relative paths for the two text files, added rstrip to
+#                       programatically remove newlines and trailing spaces from api_items
 # 9/24/2015     IP      Created script, GitHub repo. Scheduling set up using Windows Task Scheduler
 
+# The following fines are called with absolute paths so that this script can be run from any directory.
+# This makes it so that a Scheduled Task for this script does not need to have a defined "Start In" directory.
+
 # Define quotes_file, file from which quotes are selected
-quotes_file = "relaxQuotes.txt"
+quotes_file = "C:/Users/Isaac/Documents/Python/relaxBot/relaxQuotes.txt"
 
 # Define api_file, file from which private Twitter API items are read
-api_file = "twitterAccess.txt"
-
-# Both of the above files should be in the same folder as this script
+api_file = "C:/Users/Isaac/Documents/Python/relaxBot/twitterAccess.txt"
 
 # Read in lines from api_file into a list
 with open(api_file) as f:
@@ -24,15 +27,15 @@ with open(api_file) as f:
 
 # api_items contains: CONSUMER_KEY, CONSUMER_SECRET, ACCESS_KEY, ACCESS_SECRET
 
-# Above method maintains the /n character, which needs to be removed from later calls
+# Above method maintains the /n character, which needs to be removed for later calls
+for i in range(3):
+    api_items[i] = api_items[i].rstrip()
+
 # Enter application authentication information
-# If a 401 error occurs when the script is run, the formatting of these items is likely to blame.
-# Check for trailing spaces and the like.
-CONSUMER_KEY = api_items[0][:-1]
-CONSUMER_SECRET = api_items[1][:-1]
-ACCESS_KEY = api_items[2][:-1]
+CONSUMER_KEY = api_items[0]
+CONSUMER_SECRET = api_items[1]
+ACCESS_KEY = api_items[2]
 ACCESS_SECRET = api_items[3]
-# As the above is the final line of the text file, there is no /n character to remove
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
@@ -48,5 +51,5 @@ quote_n = len(quotes)
 quote_ln = random.randrange(0, quote_n, 1)
 
 # Update status using the quote located on the line of quotes_file indicated by quote_ln
-# Last character (/n) is omitted
-api.update_status(status=quotes[quote_ln][:-1])
+# Last character (/n) is omitted using rstrip
+api.update_status(status=quotes[quote_ln].rstrip("/n"))
