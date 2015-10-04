@@ -20,6 +20,8 @@ $RECYCLE.BIN/
 # Repo specific exclusions
 .idea
 twitterAccess.txt
+relaxBatch.bat
+.gitignore
 
 # =========================
 # Operating System Files

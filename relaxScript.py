@@ -1,5 +1,4 @@
-import tweepy, time, sys, random, os
-# Import libraries
+import tweepy, random
 
 __author__ = 'ipurton'
 
@@ -8,9 +7,10 @@ __author__ = 'ipurton'
 # Based on the guide found at http://www.dototot.com/how-to-write-a-twitter-bot-with-python-and-tweepy/
 
 # Revision Log:
-# 9/28/2015	    IP		Switched to absolute paths instead of relative paths for the two text files, added rstrip to
-#                       programatically remove newlines and trailing spaces from api_items
-# 9/24/2015     IP      Created script, GitHub repo. Scheduling set up using Windows Task Scheduler
+# 9/28/2015	IP		
+# Switched to absolute paths instead of relative paths for the two text files, added rstrip to programatically remove newlines and trailing spaces from api_items
+# 9/24/2015    IP      
+# Created script, GitHub repo. Scheduling set up using Windows Task Scheduler
 
 # The following fines are called with absolute paths so that this script can be run from any directory.
 # This makes it so that a Scheduled Task for this script does not need to have a defined "Start In" directory.
